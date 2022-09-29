@@ -18,7 +18,7 @@ export default {
   fetch: async (req, env) => {
     const { pathname, search } = new URL(req.url)
     if (pathname != '/api') return fetch('https://cdn.skypack.dev/' + pathname + search)
-     const { user, origin, requestId, method, body, time, pathname, pathSegments, pathOptions, url, query, search, hash } = await env.CTX.fetch(req).then(res => res.json())
+     const { user, origin, requestId, method, body, time, pathSegments, pathOptions, url, query } = await env.CTX.fetch(req).then(res => res.json())
      return new Response(JSON.stringify({api,user}, null, 2), { headers: { 'content-type': 'application/json; charset=utf-8' }})
     }
     
