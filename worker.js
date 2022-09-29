@@ -16,8 +16,11 @@ export const api = {
 
 export default {
   fetch: async (req, env) => {
-    const { user, origin, requestId, method, body, time, pathname, pathSegments, pathOptions, url, query, search, hash } = await env.CTX.fetch(req).then(res => res.json())
-    if (pathname == '/api') return new Response(JSON.stringify({api,user}, null, 2), { headers: { 'content-type': 'application/json; charset=utf-8' }})
-    return fetch('https://cdn.skypack.dev/' + pathname + search)
+    const { pathname, search } = new URL(req.url)
+    if (pathname != '/api') return fetch('https://cdn.skypack.dev/' + pathname + search)
+     const { user, origin, requestId, method, body, time, pathname, pathSegments, pathOptions, url, query, search, hash } = await env.CTX.fetch(req).then(res => res.json())
+     return new Response(JSON.stringify({api,user}, null, 2), { headers: { 'content-type': 'application/json; charset=utf-8' }})
+    }
+    
   },
 }
